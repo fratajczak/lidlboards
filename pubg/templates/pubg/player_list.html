@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load django_tables2 %}
+{% block content %}
+<script>
+    function enableTooltips() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        })
+        return tooltipList;
+    }
+
+    function makeActive(new_active_tab) {
+        const tab_list = new_active_tab.parentElement;
+        let old_active_tab_idx;
+        let i = 0;
+
+        for (const tab of tab_list.children) {
+            if (tab.children[0].classList.contains('active')) {
+                tab.children[0].classList.remove('active');
+                console.log(tab);
+                old_active_tab_idx = i;
+                break;
+            }
+            i++;
+        }
+
+        const tables = tab_list.parentElement.nextElementSibling.children;
+
+        const new_active_tab_idx = [...tab_list.children].indexOf(new_active_tab);
+        tables[old_active_tab_idx].classList.remove('visible')
+        tables[new_active_tab_idx].classList.add('visible')
+        new_active_tab.children[0].classList.add('active');
+    }
+
+    bootstrap_js.addEventListener("load", enableTooltips);
+</script>
+<div class="container-fill mx-auto">
+    <div class="mt-5" style='margin-left:5%'>
+        <p><b><h4>Rankings based on {{nb_games}} games from {{first_game_date|date:'Y-m-d'}} to {{last_game_date|date:'Y-m-d H:i:s (e)'}} </h4></b></p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-evenly">
+        <div class="card my-5" style="flex-basis: 1050px;">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item" onclick="makeActive(this)">
+                        <a class="nav-link active" aria-current="true" href="#" onclick="event.preventDefault()">Best kill score&nbsp;&nbsp;&nbsp;<img src="//static-cdn.jtvnw.net/emoticons/v2/304412445/default/dark/2.0" alt="forsenSmug" width=32 height=32></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                {% render_table table_killscore %}
+            </div>
+        </div>
+        <div class="card  my-5" style="flex-basis: 1050px;">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item" onclick="makeActive(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Players with more than 10 K+D only">
+                        <a class="nav-link active" aria-current="true" href="#" onclick="event.preventDefault()">Best K/D&nbsp;&nbsp;&nbsp;<img src="https://cdn.frankerfacez.com/emoticon/185890/2" alt="EZY" width=32 height=32 style='vertical-align: top'></a>
+                    </li>
+                    <li class="nav-item" onclick="makeActive(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Players with more than 10 K+D only">
+                        <a class="nav-link" href="#" onclick="event.preventDefault()">Worst K/D&nbsp;&nbsp;&nbsp;<img src="//cdn.frankerfacez.com/emote/536927/2" alt="FeelsDankMan" width=28.5 height=32 style='vertical-align: top'></a>
+                    </li>
+                    <li class="nav-item" onclick="makeActive(this)">
+                        <a class="nav-link" aria-current="true" href="#" onclick="event.preventDefault()">Most kills</a>
+                    </li>
+                    <li class="nav-item" onclick="makeActive(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Players with more than 10 K+D only">
+                        <a class="nav-link" href="#" onclick="event.preventDefault()">Most kills per game</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Most kills by weapon</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Vehicle</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Weapon throw</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Melee weapon</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Explosion</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Molotov</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Crossbow</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault()">Gun&nbsp;&nbsp;&nbsp;<img src="https://cdn.betterttv.net/emote/555981336ba1901877765555/2x" alt="haHAA" width=32 height=32 vertical-align: top;"></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                {% render_table table_best_kd %}
+                {% render_table table_worst_kd %}
+                {% render_table table_most_kills %}
+                {% render_table table_most_kills_per_game %}
+            </div>
+        </div>
+        <div class="card  my-5" style="flex-basis: 1050px;">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs align-items-center">
+                    <li class="nav-item" onclick="makeActive(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Players with more than 10 K+D only">
+                        <a class="nav-link active" href="#" onclick="event.preventDefault()">Least deaths per game&nbsp;&nbsp;&nbsp;<img src="https://cdn.betterttv.net/emote/624630b13c6f14b688440c6f/2x" alt="forsenLevel" width=32 height=32> <img src="https://cdn.betterttv.net/emote/56f6eb647ee3e8fc6e4fe48e/2x" alt="TeaTime" width=32 height=32></a>
+                    </li>
+                    <li class="nav-item" onclick="makeActive(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Players with more than 10 K+D only">
+                        <a class="nav-link" href="#" onclick="event.preventDefault()">Most deaths per game&nbsp;&nbsp;&nbsp;<img src="https://cdn.betterttv.net/emote/60f0edec8ed8b373e42231b2/2x" alt="forsenLaughingAtYou" width=32 height=32></a>
+                    </li>
+                    <li class="nav-item" onclick="makeActive(this)">
+                        <a class="nav-link" aria-current="true" href="#" onclick="event.preventDefault()">Most deaths&nbsp;&nbsp;&nbsp;<img src="https://cdn.betterttv.net/emote/5f7099bc088f5c0b0f470cc8/2x" alt="forsenClown" width=32 height=32></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                {% render_table table_least_deaths_per_game %}
+                {% render_table table_most_deaths_per_game %}
+                {% render_table table_most_deaths %}
+            </div>
+        </div>
+        <div class="card  my-5" style="flex-basis: 1050px;">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item" onclick="makeActive(this)">
+                        <a class="nav-link active" aria-current="true" href="javascript:void(0);">Most games sniped&nbsp;&nbsp;&nbsp;<img src="https://cdn.betterttv.net/emote/60362efb7c74605395f33680/2x" alt="ZULUL" width=32 height=32></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                {% render_table table_most_games %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
