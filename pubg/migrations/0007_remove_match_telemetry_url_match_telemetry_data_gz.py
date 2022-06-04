@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0006_match_telemetry_url'),
+        ("pubg", "0006_match_telemetry_url"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='match',
-            name='telemetry_url',
+            model_name="match",
+            name="telemetry_url",
         ),
         migrations.AddField(
-            model_name='match',
-            name='telemetry_data_gz',
-            field=models.IntegerField(null=True, verbose_name='Telemetry Data'),
+            model_name="match",
+            name="telemetry_data_gz",
+            field=models.IntegerField(null=True, verbose_name="Telemetry Data"),
         ),
     ]

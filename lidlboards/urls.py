@@ -18,7 +18,7 @@ from django.views.generic import RedirectView
 from django.urls import include, path
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='pubg/')),
-    path('pubg/', include('pubg.urls')),
-    path('admin/', admin.site.urls),
+    path("", RedirectView.as_view(url="pubg/")),
+    path("pubg/", include("pubg.urls")),
+    path("admin/", admin.site.urls),
 ]

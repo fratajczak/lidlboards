@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0005_match_nb_real_players_alter_match_created_at_and_more'),
+        ("pubg", "0005_match_nb_real_players_alter_match_created_at_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='match',
-            name='telemetry_url',
-            field=models.CharField(max_length=256, null=True, verbose_name='Telemetry URL'),
+            model_name="match",
+            name="telemetry_url",
+            field=models.CharField(max_length=256, null=True, verbose_name="Telemetry URL"),
         ),
     ]

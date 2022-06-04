@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0015_match_forsen_final_rank'),
+        ("pubg", "0015_match_forsen_final_rank"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='playermatchstats',
-            name='forsen_final_rank',
+            model_name="playermatchstats",
+            name="forsen_final_rank",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='killscore',
+            model_name="playermatchstats",
+            name="killscore",
             field=models.IntegerField(default=0),
         ),
     ]

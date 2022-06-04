@@ -6,48 +6,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0004_remove_playermatchstats_duration_match_created_at_and_more'),
+        ("pubg", "0004_remove_playermatchstats_duration_match_created_at_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='match',
-            name='nb_real_players',
-            field=models.IntegerField(null=True, verbose_name='Number of real players'),
+            model_name="match",
+            name="nb_real_players",
+            field=models.IntegerField(null=True, verbose_name="Number of real players"),
         ),
         migrations.AlterField(
-            model_name='match',
-            name='created_at',
-            field=models.DateTimeField(null=True, verbose_name='Date'),
+            model_name="match",
+            name="created_at",
+            field=models.DateTimeField(null=True, verbose_name="Date"),
         ),
         migrations.AlterField(
-            model_name='match',
-            name='map_name',
-            field=models.CharField(max_length=64, null=True, verbose_name='Map name'),
+            model_name="match",
+            name="map_name",
+            field=models.CharField(max_length=64, null=True, verbose_name="Map name"),
         ),
         migrations.AlterField(
-            model_name='match',
-            name='nb_bots',
-            field=models.IntegerField(null=True, verbose_name='Number of bots'),
+            model_name="match",
+            name="nb_bots",
+            field=models.IntegerField(null=True, verbose_name="Number of bots"),
         ),
         migrations.AlterField(
-            model_name='playermatchstats',
-            name='damage_dealt',
-            field=models.IntegerField(null=True, verbose_name='Damage dealt'),
+            model_name="playermatchstats",
+            name="damage_dealt",
+            field=models.IntegerField(null=True, verbose_name="Damage dealt"),
         ),
         migrations.AlterField(
-            model_name='playermatchstats',
-            name='ride_distance',
-            field=models.IntegerField(null=True, verbose_name='Distance in vehicles'),
+            model_name="playermatchstats",
+            name="ride_distance",
+            field=models.IntegerField(null=True, verbose_name="Distance in vehicles"),
         ),
         migrations.AlterField(
-            model_name='playermatchstats',
-            name='time_survived',
-            field=models.IntegerField(null=True, verbose_name='Time survived'),
+            model_name="playermatchstats",
+            name="time_survived",
+            field=models.IntegerField(null=True, verbose_name="Time survived"),
         ),
         migrations.AlterField(
-            model_name='playermatchstats',
-            name='walk_distance',
-            field=models.IntegerField(null=True, verbose_name='Distance by walking'),
+            model_name="playermatchstats",
+            name="walk_distance",
+            field=models.IntegerField(null=True, verbose_name="Distance by walking"),
         ),
     ]

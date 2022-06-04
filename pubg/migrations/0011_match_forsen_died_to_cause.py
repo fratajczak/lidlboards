@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0010_rename_forsen_died_to_match_forsen_died_to_account'),
+        ("pubg", "0010_rename_forsen_died_to_match_forsen_died_to_account"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='match',
-            name='forsen_died_to_cause',
+            model_name="match",
+            name="forsen_died_to_cause",
             field=models.CharField(max_length=64, null=True),
         ),
     ]

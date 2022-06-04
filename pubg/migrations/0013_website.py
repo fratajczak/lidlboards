@@ -7,15 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0012_player_deaths_player_games_sniped_player_kills'),
+        ("pubg", "0012_player_deaths_player_games_sniped_player_kills"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Website',
+            name="Website",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('last_update', models.DateField(default=datetime.datetime(2022, 1, 1, 0, 0))),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("last_update", models.DateField(default=datetime.datetime(2022, 1, 1, 0, 0))),
             ],
         ),
     ]

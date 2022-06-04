@@ -6,43 +6,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0008_alter_match_telemetry_data_gz'),
+        ("pubg", "0008_alter_match_telemetry_data_gz"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='match',
-            name='forsen_died_to',
+            model_name="match",
+            name="forsen_died_to",
             field=models.CharField(max_length=64, null=True),
         ),
         migrations.AddField(
-            model_name='match',
-            name='nb_forsen_bot_kills',
+            model_name="match",
+            name="nb_forsen_bot_kills",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='match',
-            name='nb_forsen_kills',
+            model_name="match",
+            name="nb_forsen_kills",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='damage_to_forsen',
-            field=models.IntegerField(null=True, verbose_name='Damage dealt to forsen'),
+            model_name="playermatchstats",
+            name="damage_to_forsen",
+            field=models.IntegerField(null=True, verbose_name="Damage dealt to forsen"),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='killed_by_forsen_with',
+            model_name="playermatchstats",
+            name="killed_by_forsen_with",
             field=models.CharField(max_length=64, null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='killed_forsen_with',
+            model_name="playermatchstats",
+            name="killed_forsen_with",
             field=models.CharField(max_length=64, null=True),
         ),
         migrations.AlterField(
-            model_name='playermatchstats',
-            name='walk_distance',
-            field=models.IntegerField(null=True, verbose_name='Distance walked'),
+            model_name="playermatchstats",
+            name="walk_distance",
+            field=models.IntegerField(null=True, verbose_name="Distance walked"),
         ),
     ]

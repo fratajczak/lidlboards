@@ -8,37 +8,49 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Match',
+            name="Match",
             fields=[
-                ('id', models.CharField(max_length=64, primary_key=True, serialize=False)),
+                ("id", models.CharField(max_length=64, primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Player',
+            name="Player",
             fields=[
-                ('id', models.CharField(max_length=64, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=16)),
+                ("id", models.CharField(max_length=64, primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=16)),
             ],
         ),
         migrations.CreateModel(
-            name='PlayerMatchStats',
+            name="PlayerMatchStats",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('match', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pubg.match')),
-                ('player', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pubg.player')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "match",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="pubg.match"),
+                ),
+                (
+                    "player",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="pubg.player"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('player', 'match')},
+                "unique_together": {("player", "match")},
             },
         ),
         migrations.AddField(
-            model_name='player',
-            name='matches',
-            field=models.ManyToManyField(through='pubg.PlayerMatchStats', to='pubg.match'),
+            model_name="player",
+            name="matches",
+            field=models.ManyToManyField(through="pubg.PlayerMatchStats", to="pubg.match"),
         ),
     ]

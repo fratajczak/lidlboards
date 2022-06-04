@@ -21,21 +21,25 @@ class Command(BaseCommand):
         forsen = Player.objects.get(id=FORSEN_PLAYERID)
         forsen.update_from_api()
 
-        logger.info('Getting info from new games...')
+        logger.info("Getting info from new games...")
         new_matches = Match.objects.filter(created_at__isnull=True)
         new_match_ids = []
 
         for match in tqdm(new_matches):
             match.update_from_api()
             new_match_ids.append(match.id)
-        logger.info(f'Got info from {len(new_matches)} new games')
+        logger.info(f"Got info from {len(new_matches)} new games")
 
-        print(f'Recomputing player stats...')
-        players_to_update_list = PlayerMatchStats.objects.filter(match__in=new_match_ids).values_list('player', flat=True).distinct()
+        print(f"Recomputing player stats...")
+        players_to_update_list = (
+            PlayerMatchStats.objects.filter(match__in=new_match_ids)
+            .values_list("player", flat=True)
+            .distinct()
+        )
         players_to_update = Player.objects.filter(id__in=players_to_update_list)
         for player in tqdm(players_to_update):
             player.compute_stats()
-        logger.info(f'Recomputed stats for {len(players_to_update)} players')
+        logger.info(f"Recomputed stats for {len(players_to_update)} players")
 
         website, _ = Website.objects.get_or_create(pk=1)
         website.last_update = timezone.now()

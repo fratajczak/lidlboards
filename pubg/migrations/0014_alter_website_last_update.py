@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0013_website'),
+        ("pubg", "0013_website"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='website',
-            name='last_update',
+            model_name="website",
+            name="last_update",
             field=models.DateTimeField(default=datetime.datetime(2022, 1, 1, 0, 0)),
         ),
     ]

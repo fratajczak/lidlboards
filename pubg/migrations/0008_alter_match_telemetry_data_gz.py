@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0007_remove_match_telemetry_url_match_telemetry_data_gz'),
+        ("pubg", "0007_remove_match_telemetry_url_match_telemetry_data_gz"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='match',
-            name='telemetry_data_gz',
-            field=models.BinaryField(null=True, verbose_name='Telemetry Data'),
+            model_name="match",
+            name="telemetry_data_gz",
+            field=models.BinaryField(null=True, verbose_name="Telemetry Data"),
         ),
     ]

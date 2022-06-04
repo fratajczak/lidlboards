@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0011_match_forsen_died_to_cause'),
+        ("pubg", "0011_match_forsen_died_to_cause"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='player',
-            name='deaths',
+            model_name="player",
+            name="deaths",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='player',
-            name='games_sniped',
+            model_name="player",
+            name="games_sniped",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='player',
-            name='kills',
+            model_name="player",
+            name="kills",
             field=models.IntegerField(default=0),
         ),
     ]

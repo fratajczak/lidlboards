@@ -6,57 +6,57 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0003_playermatchstats_duration'),
+        ("pubg", "0003_playermatchstats_duration"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='playermatchstats',
-            name='duration',
+            model_name="playermatchstats",
+            name="duration",
         ),
         migrations.AddField(
-            model_name='match',
-            name='created_at',
+            model_name="match",
+            name="created_at",
             field=models.DateTimeField(null=True),
         ),
         migrations.AddField(
-            model_name='match',
-            name='duration',
+            model_name="match",
+            name="duration",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='match',
-            name='is_forsen_match',
+            model_name="match",
+            name="is_forsen_match",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='match',
-            name='map_name',
+            model_name="match",
+            name="map_name",
             field=models.CharField(max_length=64, null=True),
         ),
         migrations.AddField(
-            model_name='match',
-            name='nb_bots',
+            model_name="match",
+            name="nb_bots",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='damage_dealt',
+            model_name="playermatchstats",
+            name="damage_dealt",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='ride_distance',
+            model_name="playermatchstats",
+            name="ride_distance",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='time_survived',
+            model_name="playermatchstats",
+            name="time_survived",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='playermatchstats',
-            name='walk_distance',
+            model_name="playermatchstats",
+            name="walk_distance",
             field=models.IntegerField(null=True),
         ),
     ]

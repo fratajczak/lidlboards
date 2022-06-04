@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pubg', '0014_alter_website_last_update'),
+        ("pubg", "0014_alter_website_last_update"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='match',
-            name='forsen_final_rank',
+            model_name="match",
+            name="forsen_final_rank",
             field=models.IntegerField(null=True),
         ),
     ]
