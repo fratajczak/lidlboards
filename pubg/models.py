@@ -7,7 +7,7 @@ import json
 import logging
 
 import pubg.api 
-from pubg import FORSEN_PLAYERID, KILLSCORE_WEAPON_MULTIPLIERS
+from pubg import FORSEN_PLAYERID, WEAPON_KILLSCORE_MULTIPLIERS
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -41,7 +41,7 @@ class PlayerMatchStats(models.Model):
         x = self.forsen_final_rank
         #base_kill_value = 2*(100-x)**2 + 1.11**(100-x) + 1000
         base_kill_value = 44682 + -9389 * log(x)
-        multiplier = KILLSCORE_WEAPON_MULTIPLIERS.get(self.killed_forsen_with)
+        multiplier = WEAPON_KILLSCORE_MULTIPLIERS.get(self.killed_forsen_with)
         if multiplier is None:
                 logger.warning(f'Unhandled killscore multiplier for {self.killed_forsen_with} in match {self.match}')
                 return base_kill_value

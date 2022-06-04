@@ -1,6 +1,6 @@
 FORSEN_PLAYERID = "account.9f8afe4c244e4290abb265d6864eac3e"
 
-KILLSCORE_WEAPON_MULTIPLIERS = {
+WEAPON_KILLSCORE_MULTIPLIERS = {
     'Damage_Explosion_Vehicle': 10,
     'Damage_Melee': 5,
     'Damage_Punch': 5,
