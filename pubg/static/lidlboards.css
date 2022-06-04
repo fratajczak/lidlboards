@@ -63,3 +63,24 @@
 .table {
     color: #c9d1d9;
 }
+
+.form-control {
+    background-color: #0d1117;
+    color: white;
+    box-shadow: none !important;
+    border-color: #30363d;
+}
+
+.form-control::placeholder {
+    color: #c2c3c5;
+}
+
+.form-control:focus {
+    color: white;
+    border-color: #848d97;
+    background-color: transparent;
+}
+
+.form-control:focus::placeholder {
+    color: #848d97;
+}

@@ -1,7 +1,8 @@
 {% load static %}
+{% load active %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,10 +15,10 @@
     <link rel="stylesheet" href="{% static 'lidlboards.css' %}">
 
     <title>{% block title %}Lidlboards{% endblock %}</title>
-</head>
+  </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg">
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/pubg"><img src="{% static 'pubg/pubg.png' %}" width=60 height=34 alt=""></a>
         <a class="navbar-brand" href="/pubg">Lidlboards </a>
@@ -27,28 +28,40 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rankings</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item active" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+            <li class="nav-item">
+              {% with url='/pubg/rankings' %}
+              <a class="nav-link {% active request url %}" href="{{url}}">Rankings</a>
+              {% endwith %}
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              {% with url='/pubg/stats' %}
+              <a class="nav-link {% active request url %}" href="{{url}}">Statistics</a>
+              {% endwith %}
+            </li>
+            <li class="nav-item">
+              {% with url='/pubg/about' %}
+              <a class="nav-link {% active request url %}" href="{{url}}">About</a>
+              {% endwith %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" target="blank" href="https://github.com/fratajczak/lidlboards">GitHub</a>
             </li>
           </ul>
+          <div class="dropdown-divider"></div>
+
+          <div class="navbar-text mx-2" style="color: #c2c3c5">
+            <i>Last updated at {{update_datetime|date:'Y-m-d H:i:s (e)'}}</i>
+          </div>
+
+          <form class="form-inline m-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Player search" aria-label="Player search">
+          </form>
+
         </div>
-        <i>Last updated at {{update_datetime|date:'Y-m-d H:i:s (e)'}}</i>
       </div>
     </nav>
 
-
-
     {% block content %}{% endblock %}
 
-</body>
+  </body>
 </html>
