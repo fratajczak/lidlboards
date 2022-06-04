@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 
 import django_tables2 as tables
 
+from pubg import WEAPON_KILLSCORE_MULTIPLIERS, WEAPON_ICON_NAMES, WEAPON_NAMES
 from pubg.models import Match, Player, PlayerMatchStats 
 
 class OnePagePaginator(Paginator):
@@ -14,22 +15,30 @@ class OnePagePaginator(Paginator):
         super().__init__(object_list, per_page, orphans, allow_empty_first_page)
         self.num_pages = 1
 
-def get_icon_html(icon_name):
-    return mark_safe(f'<img src="{static("pubg/icons/" + icon_name)}" width="48">')
+def get_icon_html(damage_type):
+    icon_filename = WEAPON_ICON_NAMES[damage_type]
+    alt = WEAPON_NAMES[damage_type]
+    tooltip = f"{WEAPON_KILLSCORE_MULTIPLIERS[damage_type]}x kill score multiplier"
+    if damage_type == 'Damage_Gun':
+        tooltip += ' (only in top 5)'
+    return mark_safe(
+        f'<img src="{static("pubg/icons/" + icon_filename)}" alt="{alt}" width="48" '
+        f'data-bs-toggle="tooltip" data-bs-placement="top" title="{tooltip}">'
+    )
 
 class PlayerKillScoreTable(tables.Table):
     name = tables.Column()
     killscore = tables.Column('Kill score')
     kills= tables.Column('Total')
-    vehicle_explosion = tables.Column(get_icon_html('Vehicle_Explosion.png'), empty_values=())
-    punch = tables.Column(get_icon_html('Punch.png'), empty_values=())
-    c4 = tables.Column(get_icon_html('Item_Weapon_C4_C.png'), empty_values=())
-    molotov = tables.Column(get_icon_html('Item_Weapon_Molotov_C.png'), empty_values=())
-    grenade = tables.Column(get_icon_html('Item_Weapon_Grenade_C.png'), empty_values=())
-    throw = tables.Column(get_icon_html('Melee_Throw.png'), empty_values=())
-    vehicle = tables.Column(get_icon_html('Vehicle.png'), empty_values=())
-    panzerfaust = tables.Column(get_icon_html('Item_Weapon_PanzerFaust100M_C.png'), empty_values=())
-    gun = tables.Column(get_icon_html('Item_Weapon_AK47_C.png'), empty_values=())
+    vehicle_explosion = tables.Column(get_icon_html('Damage_Explosion_Vehicle'), empty_values=())
+    punch = tables.Column(get_icon_html('Damage_Melee'), empty_values=())
+    c4 = tables.Column(get_icon_html('Damage_Explosion_C4'), empty_values=())
+    molotov = tables.Column(get_icon_html('Damage_Molotov'), empty_values=())
+    grenade = tables.Column(get_icon_html('Damage_Explosion_Grenade'), empty_values=())
+    throw = tables.Column(get_icon_html('Damage_MeleeThrow'), empty_values=())
+    vehicle = tables.Column(get_icon_html('Damage_VehicleHit'), empty_values=())
+    panzerfaust = tables.Column(get_icon_html('Damage_Explosion_PanzerFaustWarhead'), empty_values=())
+    gun = tables.Column(get_icon_html('Damage_Gun'), empty_values=())
 
 
     def __init__(self, *args, **kwargs):
