@@ -266,6 +266,9 @@ class Player(models.Model):
     games_sniped = models.IntegerField(default=0)
     killscore = models.IntegerField(default=0)
 
+    class Meta:
+        indexes = [models.Index(fields=["name"])]
+
     def __str__(self):
         return self.name
 
