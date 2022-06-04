@@ -167,7 +167,7 @@ class PlayerKillTable(tables.Table):
 
 def all_rankings_view(request):
     config = tables.RequestConfig(request, paginate={'paginator_class': OnePagePaginator})
-    visible = {'class': 'table-container visible'}
+    visible = {'class': 'table-container table-responsive visible'}
 
     table_killscore = PlayerKillScoreTable(Player.objects.all(), attrs=visible)
     table_killscore.order_by = '-killscore'

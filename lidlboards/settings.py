@@ -126,4 +126,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap4.html'
+DJANGO_TABLES2_TEMPLATE = 'table.html'
