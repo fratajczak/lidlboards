@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from tqdm import tqdm
 
-from pubg.models import Player, PlayerMatchStats, Match, Website, FORSEN_PLAYERID
+from pubg.models import Player, PlayerMatchStats, Match, Website
+from pubg import FORSEN_PLAYERID
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
