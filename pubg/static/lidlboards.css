@@ -62,6 +62,12 @@
 
 .table {
     color: #c9d1d9;
+    border-color: #21262d;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: #161b22;
+    color: #c9d1d9;
 }
 
 .form-control {

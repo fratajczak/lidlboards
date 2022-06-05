@@ -32,7 +32,18 @@ def get_icon_html(damage_type):
     )
 
 
-class PlayerKillScoreTable(tables.Table):
+class ClickableRowTable(tables.Table):
+    """Table with stretched link on name column:
+    the whole row is clickable with a link to the player page"""
+
+    def render_name(self, **kwargs):
+        player = kwargs["record"]
+        return mark_safe(
+            f'<a href="/pubg/player/{player.id}" class="text-decoration-none text-reset stretched-link">{player.name}</a>'
+        )
+
+
+class PlayerKillScoreTable(ClickableRowTable):
     name = tables.Column()
     killscore = tables.Column("Kill score")
     kills = tables.Column("Total")
@@ -123,7 +134,7 @@ class PlayerKillScoreTable(tables.Table):
         sequence = ("name", "killscore", "...", "kills")
 
 
-class PlayerKDTable(tables.Table):
+class PlayerKDTable(ClickableRowTable):
     name = tables.Column(attrs={"th": {"width": "55%"}})
     kd = tables.Column("K/D", attrs={"th": {"width": "15%"}})
     kills = tables.Column(attrs={"th": {"width": "15%"}})
@@ -152,7 +163,7 @@ class PlayerKDTable(tables.Table):
         exclude = ("id", "is_forsen", "games_sniped", "killscore")
 
 
-class PlayerDeathTable(tables.Table):
+class PlayerDeathTable(ClickableRowTable):
     name = tables.Column(attrs={"th": {"width": "55%"}})
     dpg = tables.Column("Deaths per game", attrs={"th": {"width": "15%"}})
     deaths = tables.Column(attrs={"th": {"width": "15%"}})
@@ -181,7 +192,7 @@ class PlayerDeathTable(tables.Table):
         exclude = ("id", "is_forsen", "kills", "killscore")
 
 
-class PlayerKillTable(tables.Table):
+class PlayerKillTable(ClickableRowTable):
     name = tables.Column(attrs={"th": {"width": "35%"}})
     kills = tables.Column(attrs={"th": {"width": "15%"}})
     games_sniped = tables.Column("Games", attrs={"th": {"width": "15%"}})
@@ -310,6 +321,10 @@ def player_search(request):
             messages.error(request, error)
 
     return render(request, "pubg/search_results.html", context)
+
+
+def player_view(request, account_id):
+    return render(request, "base.html", {})
 
 
 def index(request):
