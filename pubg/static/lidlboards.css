@@ -1,6 +1,7 @@
 .container-fill, body {
     background: #010409;
     color: #c9d1d9;
+    fill: currentColor;
 }
 
 .nav-link {

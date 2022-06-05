@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load django_tables2 %}
+{% load static %}
 {% block content %}
 <script>
     function enableTooltips() {
@@ -42,9 +43,14 @@
     <div class="d-flex flex-wrap justify-content-evenly">
         <div class="card my-5" style="flex-basis: 1050px;">
             <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
+                <ul class="nav nav-tabs card-header-tabs d-flex justify-content-between align-items-center">
                     <li class="nav-item" onclick="makeActive(this)">
                         <a class="nav-link active" aria-current="true" href="#" onclick="event.preventDefault()">Best kill score&nbsp;&nbsp;&nbsp;<img src="//static-cdn.jtvnw.net/emoticons/v2/304412445/default/dark/2.0" alt="forsenSmug" width=32 height=32></a>
+                    </li>
+                    <li class="mx-3" onclick="showkillScoreModal();" style="cursor:pointer;">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width=28 height=28>
+                        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 400c-18 0-32-14-32-32s13.1-32 32-32c17.1 0 32 14 32 32S273.1 400 256 400zM325.1 258L280 286V288c0 13-11 24-24 24S232 301 232 288V272c0-8 4-16 12-21l57-34C308 213 312 206 312 198C312 186 301.1 176 289.1 176h-51.1C225.1 176 216 186 216 198c0 13-11 24-24 24s-24-11-24-24C168 159 199 128 237.1 128h51.1C329 128 360 159 360 198C360 222 347 245 325.1 258z"/>
+                      </svg>
                     </li>
                 </ul>
             </div>
@@ -112,4 +118,128 @@
 </div>
 </div>
 </div>
+
+<!--Killscore explanation modal-->
+<div class="modal fade" id="killScoreModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="killScoreModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="killScoreModalLabel">Kill Score Calculation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+        You get points for killing forsen in a game. The higher forsen placed when you killed him,
+        the more points you get.
+        </p>
+        <p>
+        The formula is: <img src="{% static 'pubg/formula.svg' %}">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+            <th>Forsen rank</th>
+            <th>Points earned</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>2</td>
+            <td>38174</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>29571</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>23063</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>16555</td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td>10047</td>
+          </tr>
+          <tr>
+            <td>60</td>
+            <td>6240</td>
+          </tr>
+          <tr>
+            <td>80</td>
+            <td>3539</td>
+          </tr>
+          <tr>
+            <td>100</td>
+            <td>1444</td>
+          </tr>
+          </tbody>
+        </table>
+        </p>
+        <p>
+        After this, the base kill score is multiplied by a factor depending on the
+        weapon that was used: weaker weapons have bigger multipliers.
+        Guns have a 0x multiplier, except in the top 5.
+        <table class="table table-sm">
+          <thead>
+            <tr>
+            <th>Weapon</th>
+            <th>Multiplier</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Vehicle explosion</td>
+            <td>10x</td>
+          </tr>
+          <tr>
+            <td>Melee weapon/Punch</td>
+            <td>5x</td>
+          </tr>
+          <tr>
+            <td>C4</td>
+            <td>3x</td>
+          </tr>
+          <tr>
+            <td>Molotov</td>
+            <td>3x</td>
+          </tr>
+          <tr>
+            <td>Grenade</td>
+            <td>1.5x</td>
+          </tr>
+          <tr>
+            <td>Weapon throw</td>
+            <td>1.5x</td>
+          </tr>
+          <tr>
+            <td>Vehicle hit</td>
+            <td>1x</td>
+          </tr>
+          <tr>
+            <td>Panzerfaust</td>
+            <td>0.1x</td>
+          </tr>
+          <tr>
+            <td>Gun (includes crossbow)</td>
+            <td>0.5x (only in top 5)</td>
+          </tr>
+          </tbody>
+        </table>
+        </p>
+        <p>
+        So, let's say I kill forsen with a grenade in a top 2 situation: I get 
+        38174 * 1.5 = 57261 points.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showkillScoreModal() {
+      var killScoreModal = new bootstrap.Modal(document.getElementById('killScoreModal'))
+      killScoreModal.show();
+    };
+</script>
 {% endblock %}
