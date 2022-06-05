@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-sm mx-auto">
+  <div class="col mt-5">
+  <p><b><h4>Found {{ players|length }} results for "{{query}}"</h4></b></p>
+  <br>
+  <div class="list-group">
+    {% for player in players %}
+      <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="/pubg/player/{{player.id}}">
+        {{player.name}}
+        <span class="badge bg-secondary rounded-pill">{{player.games_sniped}} games sniped</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock %}

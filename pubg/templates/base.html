@@ -53,13 +53,42 @@
             <i>Last updated at {{update_datetime|date:'Y-m-d H:i:s (e)'}}</i>
           </div>
 
-          <form class="form-inline m-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Player search" aria-label="Player search">
+          <form class="form-inline m-2 my-lg-0" action="/pubg/search/" method="post">
+            {% csrf_token %}
+            {{ player_search_form }}
+            <input type="submit" hidden>
           </form>
 
         </div>
       </div>
     </nav>
+
+    {% if messages %}
+    <div class="modal fade" id="errorModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul class="messages">
+              {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function showErrorModal() {
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'))
+        errorModal.show();
+      };
+      window.addEventListener("load", showErrorModal);
+    </script>
+    {% endif %}
 
     {% block content %}{% endblock %}
 

@@ -66,6 +66,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "pubg.context_processors.add_website_stats_to_context",
+                "pubg.context_processors.add_player_search_form_to_context",
             ],
         },
     },

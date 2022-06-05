@@ -84,3 +84,17 @@
 .form-control:focus::placeholder {
     color: #848d97;
 }
+
+.list-group-item {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+.list-group-item-action:hover {
+    background-color: #161b22;
+}
+
+.list-group-item-action:focus {
+    background-color: #161b22;
+}

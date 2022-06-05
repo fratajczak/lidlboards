@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Avg, Case, F, FloatField, ExpressionWrapper, When
+from django.http import HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import render
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
@@ -8,6 +10,7 @@ from django.views.generic.base import TemplateView
 import django_tables2 as tables
 
 from pubg import WEAPON_KILLSCORE_MULTIPLIERS, WEAPON_ICON_NAMES, WEAPON_NAMES
+from pubg.forms import PlayerSearchForm
 from pubg.models import Match, Player, PlayerMatchStats
 
 
@@ -284,6 +287,29 @@ def all_rankings_view(request):
     }
 
     return render(request, "pubg/player_list.html", context)
+
+
+def player_search(request):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"], "<h1>405 Method Not Allowed</h1>")
+
+    form = PlayerSearchForm(request.POST)
+
+    if form.is_valid():
+        query = form.cleaned_data["player_name"]
+        context = {
+            "query": query,
+            "players": Player.objects.filter(name__icontains=query),
+        }
+    else:
+        context = {
+            "query": form.data["player_name"],
+            "players": [],
+        }
+        for error in form.errors["player_name"]:
+            messages.error(request, error)
+
+    return render(request, "pubg/search_results.html", context)
 
 
 def index(request):
