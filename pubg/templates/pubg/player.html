@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-sm mx-auto">
+  <div class="row">
+    <div class="col my-5">
+      <h3>{{player.name}}</h3>
+      <div class="row">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card mt-5">
+            <div class="card-header">
+              <b>Kills</b>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4 mx-2 d-flex flex-column align-items-center">
+                  <div class="mb-3">
+                    <span class="display-5 mx-2"> {{player.kills}}</span> <i>Kills</i>
+                  </div>
+                  <div class="d-flex flex-column align-items-center">
+                    <span class="display-5"> {{player.killscore}} </span>
+                    <span><i>Kill Score</i></span>
+                  </div>
+                </div>
+                <div class="col weapon-grid">
+                  {% if kills_table %}
+                    {% for entry in kills_table %}
+                      <div class="weapon-grid-item d-flex align-items-center">
+                        {{entry.0}}
+                        <span class="badge bg-secondary rounded-pill mx-2">x{{entry.1}}</span>
+                      </div>
+                    {%endfor%}
+                  {% else %}
+                    <div class="display-5 d-flex align-items-center">
+                    Wow, you suck!
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -324,7 +324,19 @@ def player_search(request):
 
 
 def player_view(request, account_id):
-    return render(request, "base.html", {})
+    player = Player.objects.filter(id=account_id)[0]
+    kills_table = []
+    for weapon in WEAPON_NAMES:
+        kill_count = PlayerMatchStats.objects.filter(
+            player=player, killed_forsen_with=weapon
+        ).count()
+        if kill_count > 0:
+            kills_table.append((get_icon_html(weapon), kill_count))
+    context = {
+        "player": player,
+        "kills_table": kills_table,
+    }
+    return render(request, "pubg/player.html", context)
 
 
 def index(request):
